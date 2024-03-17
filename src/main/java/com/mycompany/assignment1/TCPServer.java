@@ -13,7 +13,7 @@ import java.io.*;
 public class TCPServer {
     public static void main (String args[]) throws IOException {
     try{
-        int serverPort = 7812;
+        int serverPort = 781;
         ServerSocket sSocket = new ServerSocket(serverPort);
         
         while(true) {
@@ -48,20 +48,32 @@ public class TCPServer {
             }
             public void run(){
             try{
-            String data = in.readUTF();
+                // Read the data from the client
+                String name = in.readUTF();
+                String age = in.readUTF();
+                String address = in.readUTF();
+                String phnNum = in.readUTF();
+
+                // Process the received data (you can add your logic here)
+                System.out.println("Name: " + name);
+                System.out.println("Age: " + age);
+                System.out.println("Address: " + address);
+                System.out.println("Phone Number: " + phnNum);
+            String data = "recived";
             out.writeUTF(data);
             
+             System.out.print("Message Recived: " + data);
             }
             catch(EOFException e) {
 		System.out.println("EOF:"+e.getMessage());}
 	  catch(IOException e){
 		System.out.println("IO:"+e.getMessage());}
 	  
-	  finally {
-	    try {clientS.close();}
-	    catch(IOException e){/*close failed*/}}
+	  //finally {
+	    //try {clientS.close();}
+	   // catch(IOException e){/*close failed*/}}
 
-            }
+           }
             }
 
 

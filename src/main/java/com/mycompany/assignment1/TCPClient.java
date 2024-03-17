@@ -5,6 +5,7 @@
 package com.mycompany.assignment1;
 import java.net.*;
 import java.io.*;
+import java.util.Scanner;
 
 /**
  *
@@ -14,29 +15,33 @@ public class TCPClient {
     public static void main (String args[]) throws IOException {
          Socket s= null;
         String hostName = "loclhost";
-        String message = "X";
         
+        Scanner sc = new Scanner (System.in);
     try{
        int serverPort = 781;
        s = new Socket ("localhost", serverPort);
        DataInputStream in = new DataInputStream (s.getInputStream());
        DataOutputStream out = new DataOutputStream (s.getOutputStream());
-       out.writeUTF(message);
-       String data = in.readUTF();
-       System.out.print("Message Recived: ");
+        System.out.print("Enter name: ");
+       String name = sc.nextLine();
+       System.out.print("Enter name: ");
+       String age = sc.nextLine();
+       System.out.print("Enter name: ");
+       String address = sc.nextLine();
+       System.out.print("Enter name: ");
+       String phnNum = sc.nextLine();
+       out.writeUTF(name);
+       out.writeUTF(age);
+       out.writeUTF(address);
+       out.writeUTF(phnNum);
+      // String data = in.readUTF();
+       //System.out.print("Message Recived: " + data);
     }
     catch (IOException e){
     System.out.print("Message not esd: ");
     }
-    finally {
-        if (s != null)
-        try {
-            s.close();
-        }
-        catch (IOException e){
-    System.out.print("Message not ed: ");
-    }
-    }
+    
+
     
     }
 }
