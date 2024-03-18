@@ -61,6 +61,7 @@ public class TCPServer {
                 System.out.println("Phone Number: " + phnNum);
             String data = "recived";
             out.writeUTF(data);
+            writeInFile(name,age,address,phnNum);
             
              System.out.print("Message Recived: " + data);
             }
@@ -74,7 +75,18 @@ public class TCPServer {
 	   // catch(IOException e){/*close failed*/}}
 
            }
+            
+            //making method for reading input data and storing it in file
+            public void writeInFile(String name, String age, String address, String phNum){
+                try (FileWriter writer = new FileWriter("member.txt",true)) {
+                    writer.write(name + "," + age + "," + address + "," + phNum );
+                }
+                catch (IOException e){
+                System.out.println("IO:"+e.getMessage());}
+                System.out.print("Message Recived: " );
+                }
             }
+            
 
 
     
