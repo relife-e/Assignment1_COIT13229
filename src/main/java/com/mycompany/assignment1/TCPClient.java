@@ -17,11 +17,15 @@ public class TCPClient {
         String hostName = "loclhost";
         
         Scanner sc = new Scanner (System.in);
+        String stopS = "Yes";
+        
+     while ("Yes".equals(stopS)) {
     try{
        int serverPort = 1127;
        s = new Socket ("localhost", serverPort);
        DataInputStream in = new DataInputStream (s.getInputStream());
        DataOutputStream out = new DataOutputStream (s.getOutputStream());
+       
         System.out.print("Enter First name: ");
        String nameF = sc.nextLine();
        System.out.print("Enter Last name: ");
@@ -39,12 +43,18 @@ public class TCPClient {
        out.writeUTF(phnNum);
       // String data = in.readUTF();
        //System.out.print("Message Recived: " + data);
-    }
+       System.out.println("Do you want to Continue? 'Yes' to contiue, any other character to discontinue");
+        stopS = sc.nextLine();
+       }
     catch (IOException e){
     System.out.print("Message not esd: ");
     }
     
-
+    System.out.println("Do you want to Continue? 'Yes' to contiue, any other character to discontinue");
+        stopS = sc.nextLine();
+        }
     
     }
+    
+    
 }
