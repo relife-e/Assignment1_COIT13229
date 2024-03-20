@@ -13,73 +13,24 @@ import java.io.*;
 public class TCPServer {
     public static void main (String args[]) throws IOException {
     try{
-        int serverPort = 781;
+        int serverPort = 1127;
         ServerSocket sSocket = new ServerSocket(serverPort);
         
         while(true) {
             Socket cSocket =sSocket.accept();
             
-            Data d = new Data(cSocket);
-            System.out.println("Connection established client  ");
+            Thread th = new Thread(new ImpRun(cSocket));
+            System.out.println("Connection established client " + Thread.currentThread().getName() + "\n");
+            th.start();
         }
     }
     catch (IOException e) {
-            System.out.println("Listen :"+e.getMessage());}
-    
-            
-            }}
-
-        class Data extends Thread {
-            DataInputStream in;
-            DataOutputStream out;
-            Socket clientS;
-            public Data (Socket s) {
-            try 
-            {
-                clientS = s;
-                in = new DataInputStream (clientS.getInputStream());
-                out = new DataOutputStream (clientS.getOutputStream());
-                run();
-            }
-            catch (IOException e) 
-            {
-            System.out.println("Connection:" +e.getMessage());}
-
-            }
-            public void run(){
-            try{
-                // Read the data from the client
-                String name = in.readUTF();
-                String age = in.readUTF();
-                String address = in.readUTF();
-                String phnNum = in.readUTF();
-
-                // Process the received data (you can add your logic here)
-                System.out.println("Name: " + name);
-                System.out.println("Age: " + age);
-                System.out.println("Address: " + address);
-                System.out.println("Phone Number: " + phnNum);
-            String data = "recived";
-            out.writeUTF(data);
-            writeInFile(name,age,address,phnNum);
-            
-             System.out.print("Message Recived: " + data);
-            }
-            catch(EOFException e) {
-		System.out.println("EOF:"+e.getMessage());}
-	  catch(IOException e){
-		System.out.println("IO:"+e.getMessage());}
-	  
-	  //finally {
-	    //try {clientS.close();}
-	   // catch(IOException e){/*close failed*/}}
-
-           }
-            
-            //making method for reading input data and storing it in file
-            public void writeInFile(String name, String age, String address, String phNum){
+            System.out.println("Listen :"+e.getMessage());}                
+}
+         //making method for reading input data and storing it in file
+            public void writeInFile(String nameF, String nameL, String age, String address, String phNum){
                 try (FileWriter writer = new FileWriter("member.txt",true)) {
-                    writer.write(name + "," + age + "," + address + "," + phNum );
+                    writer.write(nameF + ":" + nameL + ":" +age + ":" + address + ":" + phNum );
                 }
                 catch (IOException e){
                 System.out.println("IO:"+e.getMessage());}
