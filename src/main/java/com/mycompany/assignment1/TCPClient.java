@@ -15,46 +15,45 @@ public class TCPClient {
     public static void main (String args[]) throws IOException {
          Socket s= null;
         String hostName = "loclhost";
-        
+        try {
         Scanner sc = new Scanner (System.in);
-        String stopS = "Yes";
         
-     while ("Yes".equals(stopS)) {
-    try{
-       int serverPort = 1127;
+        int serverPort = 1127;
        s = new Socket ("localhost", serverPort);
        DataInputStream in = new DataInputStream (s.getInputStream());
        DataOutputStream out = new DataOutputStream (s.getOutputStream());
-       
-        System.out.print("Enter First name: ");
-       String nameF = sc.nextLine();
-       System.out.print("Enter Last name: ");
-       String nameL = sc.nextLine();
-       System.out.print("Enter age: ");
-       String age = sc.nextLine();
-       System.out.print("Enter age: ");
-       String address = sc.nextLine();
-       System.out.print("Enter phone number: ");
-       String phnNum = sc.nextLine();
-       out.writeUTF(nameF);
-       out.writeUTF(nameL);
-       out.writeUTF(age);
-       out.writeUTF(address);
-       out.writeUTF(phnNum);
-      // String data = in.readUTF();
-       //System.out.print("Message Recived: " + data);
-       System.out.println("Do you want to Continue? 'Yes' to contiue, any other character to discontinue");
-        stopS = sc.nextLine();
-       }
-    catch (IOException e){
-    System.out.print("Message not esd: ");
+        String stopS = "Yes";
+            while ("Yes".equalsIgnoreCase(stopS)){
+                System.out.print("Enter First name: ");
+                String nameF = sc.nextLine();
+                System.out.print("Enter Last name: ");
+                String nameL = sc.nextLine();
+                System.out.print("Enter age: ");
+                String age = sc.nextLine();
+                System.out.print("Enter address: ");
+                String address = sc.nextLine();
+                System.out.print("Enter phone number: ");
+                String phnNum = sc.nextLine();
+
+                // Send the details to the server
+                out.writeUTF(nameF);
+                out.writeUTF(nameL);
+                out.writeUTF(age);
+                out.writeUTF(address);
+                out.writeUTF(phnNum);
+
+                System.out.print("Do you want to enter another set of details? (Yes/No): ");
+                stopS = sc.nextLine();
+        }
+             
+        
+        } catch (IOException e){
+        System.out.print("Message not esd: ");
     }
-    
-    System.out.println("Do you want to Continue? 'Yes' to contiue, any other character to discontinue");
-        stopS = sc.nextLine();
+   
         }
     
     }
     
     
-}
+
