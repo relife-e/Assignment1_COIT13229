@@ -74,8 +74,8 @@ public class ImpRun implements Runnable {
             finally {
                 try {
                 Timer t = new Timer();
-                t.schedule(new WriteObjectToFile(), 2000, 1127);
-             cSocket.close();
+                t.schedule(new WriteObjectToFile(), 0, 2000);
+                cSocket.close();
              
                 }
             

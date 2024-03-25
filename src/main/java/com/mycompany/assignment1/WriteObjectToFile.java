@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +24,8 @@ import java.util.logging.Logger;
 
     
     @Override
-    public void run() {
+    public  void run() {
+        System.out.println("TimerTask started at: " + new Date());
         try {
         BufferedReader reader = new BufferedReader(new FileReader("memberlist.txt"));
         FileOutputStream fos = new FileOutputStream("memberlistObject");
@@ -41,15 +43,17 @@ import java.util.logging.Logger;
             else {
                     System.err.println("Invalid member details: " + line);
                 }
-            
-            System.out.println("Member list serialized to memberlistObject.");
-            
+  
             } 
             reader.close();
             out.close();
-
+            System.out.println("TimerTask started at: " + new Date());
+            System.out.println("Member list serialized to memberlistObject.");
+            
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+        System.out.println("End");
         }
     }
  }

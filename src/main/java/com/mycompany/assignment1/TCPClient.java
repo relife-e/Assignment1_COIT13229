@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class TCPClient {
     public static void main (String args[]) throws IOException {
          Socket s= null;
-        String hostName = "loclhost";
+        String hostName = "localhost";
         try {
         Scanner sc = new Scanner (System.in);
         
