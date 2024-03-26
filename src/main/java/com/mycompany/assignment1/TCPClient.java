@@ -11,10 +11,12 @@ import java.util.Scanner;
  *
  * @author Anmol Saru
  */
+
+//Class TCPClient that allows client to interact with server
 public class TCPClient {
     public static void main (String args[]) throws IOException {
-         Socket s= null;
-        String hostName = "localhost";
+         Socket s= null; //initializing socket
+        String hostName = "localhost"; //initializg hostname
         try {
         Scanner sc = new Scanner (System.in);
         
