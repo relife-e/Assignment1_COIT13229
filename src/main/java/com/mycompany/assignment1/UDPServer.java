@@ -13,6 +13,7 @@ public class UDPServer {
 
     public static void main(String args[]) throws ClassNotFoundException {
         DatagramSocket aSocket = null; //initialzing DatagramSocket
+        System.out.println("Dispaying memberList object as per client request:");
         try {
             aSocket = new DatagramSocket(2227); //creating new DatagramSocket object
             byte[] buffer = new byte[1024]; //creating a byte arrays that holds the buffer data
@@ -23,10 +24,10 @@ public class UDPServer {
                 InetAddress clientAddress = request.getAddress(); // Get the client's IP address
                 int clientPort = request.getPort(); //getting client port
                 buffer = run();//calls run() method and stores it in buffer
-                
+
                 //creating a DatagramPacket reply that sends data to UDPClient
                 DatagramPacket reply = new DatagramPacket(buffer, buffer.length,
-                        clientAddress, clientPort );
+                        clientAddress, clientPort);
                 aSocket.send(reply); //sends reply datagram packet
 
             }
@@ -40,33 +41,36 @@ public class UDPServer {
             }
         }
     }
+
     //run method
-    public static byte [] run() {
+    public static byte[] run() {
         ArrayList<Member> m = new ArrayList<>();
         try {
 
             FileInputStream fos = new FileInputStream("memberlistObject"); //reading file named memberlistObject
-            
+
             ObjectInputStream in = new ObjectInputStream(fos); //reading input object from fos
-            
-            byte [] sendData = null;
+
+            byte[] sendData = null;
             while (true) {
                 try {
                     Member memb = (Member) in.readObject();
                     m.add(memb); // Add the read Member object to the list
                 } catch (ClassNotFoundException e) {
+
+                } catch (EOFException e) {
                     break; // Exit the loop when end of file is reached
                 }
             }
-            
-           StringBuilder memberDetailsBuilder = new StringBuilder();//String builder object that stores memberdetails
-           //for loop to iterate for each arraylist m available
+
+            StringBuilder memberDetailsBuilder = new StringBuilder();//String builder object that stores memberdetails
+            //for loop to iterate for each arraylist m available
             for (Member memb : m) {
-             memberDetailsBuilder.append(memb.getAddress()).append(" ") //appending member details
-                            .append(memb.getfName()).append(" ")
-                            .append(memb.getlName()).append(" ")
-                            .append(memb.getAge()).append(" ")
-                            .append(memb.getNum()).append("\n");
+                memberDetailsBuilder.append(memb.getfName()).append("\t\t|") //appending member details
+                        .append(memb.getlName()).append("\t|")
+                        .append(memb.getAddress()).append("\t|")
+                        .append(memb.getAge()).append("\t|")
+                        .append(memb.getNum()).append("|\n");
             }
             String memberDetails = memberDetailsBuilder.toString(); //Converts memberDetailsBuider data to string
             sendData = memberDetails.getBytes(); // convert memberDetais to bytes

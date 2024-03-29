@@ -25,7 +25,7 @@ import java.util.TimerTask;
     //overriding run method
     @Override
     public  void run() {
-        System.out.println("TimerTask started at: " + new Date());
+        
         try {
         BufferedReader reader = new BufferedReader(new FileReader("memberlist.txt")); //Reads file from memberlist.txt
         FileOutputStream fos = new FileOutputStream("memberlistObject"); //allows to write in memberlistObject
@@ -53,7 +53,7 @@ import java.util.TimerTask;
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-        System.out.println("Member list serialized to memberlistObject.");
+        System.out.println("Memberlist serialized to memberlistObject." + new Date());
         }
     }
  }

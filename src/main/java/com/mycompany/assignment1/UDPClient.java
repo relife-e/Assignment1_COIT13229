@@ -31,7 +31,8 @@ public class UDPClient {
 
             aSocket.receive(reply); //recive reply from server and stores it in reply Datagram packet
             //disply reply form server i.e. deserialized data 
-            System.out.println("Server Response: Received message" + new String(reply.getData()) + " server at port " + reply.getPort() + " at address " + reply.getAddress());
+            System.out.println("First Name \t|" + "Last Name \t|" + "Address \t\t|" + "Age\t|" + "Number  |");
+            System.out.println( new String(reply.getData()));
         } catch (SocketException e) {
             System.out.println("Socket: " + e.getMessage());
         } catch (IOException e) {

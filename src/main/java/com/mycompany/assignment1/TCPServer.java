@@ -19,18 +19,19 @@ public class TCPServer {
         try {
             int serverPort = 1127;//initalizing serverport
             ServerSocket sSocket = new ServerSocket(serverPort);
-            System.out.println("Server running.........");
+            System.out.println("Server running. \nWaiting for client");
 
             while (true) {
                 Socket cSocket = sSocket.accept();//accepting connection from client when port matches
 
                 Thread th = new Thread(new ImpRun(cSocket));//creating new thread object that runs ImpRun class that implements runnable
-                System.out.println("Connection established client " + Thread.currentThread().getName() + "\n");
+      
+               
                 th.start();//starts new thread
 
             }
         } catch (IOException e) {
-            System.out.println("Listen :" + e.getMessage());
+            System.out.println("Error" + e.getMessage());
         }
     }
     //making method for reading input data and storing it in file
@@ -40,7 +41,7 @@ public class TCPServer {
             writer.write(nameF + ":" + nameL + ":" + age + ":" + address + ":" + phNum + "\n");
             System.out.println("Message Received: " + nameF + " " + nameL + ", " + age + ", " + address + ", " + phNum);
         } catch (IOException e) {
-            System.out.println("IO: " + e.getMessage());
+            System.out.println("Error" + e.getMessage());
         }
     }
 

@@ -15,7 +15,8 @@ import java.util.Scanner;
 //Class TCPClient that allows client to interact with server. This class is used by client side
 public class TCPClient {
     public static void main (String args[]) throws IOException {
-         Socket s= null; //initializing socket
+        System.out.println("Hello Welcome to Our Program");
+        Socket s= null; //initializing socket
         String hostName = "localhost"; //initializg hostname
         try {
         Scanner sc = new Scanner (System.in); // creating scanner object
@@ -26,8 +27,10 @@ public class TCPClient {
        DataInputStream in = new DataInputStream (s.getInputStream()); // reading input stream from socket and storing it in "in" var
        DataOutputStream out = new DataOutputStream (s.getOutputStream()); //reading output stream from socket and stroing it in "out" var
         String stopS = "Yes";
+        int count =1;
             while ("Yes".equalsIgnoreCase(stopS)){ //ignores case
-                
+                System.out.println("Enter details for your member num: " + count);
+                count++;
                 //asking user to enter details
                 System.out.print("Enter First name: ");
                 String nameF = sc.nextLine();
@@ -49,11 +52,12 @@ public class TCPClient {
 
                 System.out.print("Do you want to enter another set of details? (Yes/No): "); //Asking if user wants another loop/ enter another details
                 stopS = sc.nextLine();
+                System.out.println("**-**-**-**-**-**-**-****-****-**");
         }
              
         
         } catch (IOException e){
-        System.out.print("Message not send to client ");
+        System.out.print("Message has not been send to client ");
     }
    
         }
