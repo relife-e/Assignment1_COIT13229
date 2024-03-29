@@ -11,49 +11,49 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Date;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
  * @author Anmol Saru
  */
+//WriteObjectToFie class that writes member detiils to object
  class WriteObjectToFile extends TimerTask{
-    private static final String FileName = "memberlistObject";
+    private static final String FileName = "memberlistObject"; //initazling filename
 
 
-    
+    //overriding run method
     @Override
     public  void run() {
         System.out.println("TimerTask started at: " + new Date());
         try {
-        BufferedReader reader = new BufferedReader(new FileReader("memberlist.txt"));
-        FileOutputStream fos = new FileOutputStream("memberlistObject");
+        BufferedReader reader = new BufferedReader(new FileReader("memberlist.txt")); //Reads file from memberlist.txt
+        FileOutputStream fos = new FileOutputStream("memberlistObject"); //allows to write in memberlistObject
 
-            ObjectOutputStream out = new ObjectOutputStream(fos);
+            ObjectOutputStream out = new ObjectOutputStream(fos);//writes in memberlistObject
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(":");
                 if (tokens.length >= 5) { // Ensure enough tokens to create a Member object
                     Member member;
-                    
+                        //calling nee Member object and passing paramemters to its constructor
                         member = new Member(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4]);
-                        out.writeObject(member);
+                        out.writeObject(member);//writing member object to a file 
                     } 
             else {
                     System.err.println("Invalid member details: " + line);
                 }
   
             } 
-            reader.close();
-            out.close();
-            System.out.println("TimerTask started at: " + new Date());
-            System.out.println("Member list serialized to memberlistObject.");
+            reader.close(); //closing buffered reader
+            out.close(); //closing output stream
+            
+            
             
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-        System.out.println("End");
+        System.out.println("Member list serialized to memberlistObject.");
         }
     }
  }

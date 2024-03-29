@@ -12,20 +12,23 @@ import java.util.Scanner;
  * @author Anmol Saru
  */
 
-//Class TCPClient that allows client to interact with server
+//Class TCPClient that allows client to interact with server. This class is used by client side
 public class TCPClient {
     public static void main (String args[]) throws IOException {
          Socket s= null; //initializing socket
         String hostName = "localhost"; //initializg hostname
         try {
-        Scanner sc = new Scanner (System.in);
+        Scanner sc = new Scanner (System.in); // creating scanner object
         
-        int serverPort = 1127;
-       s = new Socket ("localhost", serverPort);
-       DataInputStream in = new DataInputStream (s.getInputStream());
-       DataOutputStream out = new DataOutputStream (s.getOutputStream());
+        int serverPort = 1127; //initialzing server port
+        //creating new TCP connection
+       s = new Socket ("localhost", serverPort); 
+       DataInputStream in = new DataInputStream (s.getInputStream()); // reading input stream from socket and storing it in "in" var
+       DataOutputStream out = new DataOutputStream (s.getOutputStream()); //reading output stream from socket and stroing it in "out" var
         String stopS = "Yes";
-            while ("Yes".equalsIgnoreCase(stopS)){
+            while ("Yes".equalsIgnoreCase(stopS)){ //ignores case
+                
+                //asking user to enter details
                 System.out.print("Enter First name: ");
                 String nameF = sc.nextLine();
                 System.out.print("Enter Last name: ");
@@ -44,13 +47,13 @@ public class TCPClient {
                 out.writeUTF(address);
                 out.writeUTF(phnNum);
 
-                System.out.print("Do you want to enter another set of details? (Yes/No): ");
+                System.out.print("Do you want to enter another set of details? (Yes/No): "); //Asking if user wants another loop/ enter another details
                 stopS = sc.nextLine();
         }
              
         
         } catch (IOException e){
-        System.out.print("Message not esd: ");
+        System.out.print("Message not send to client ");
     }
    
         }

@@ -6,28 +6,28 @@ package com.mycompany.assignment1;
 
 import java.net.*;
 import java.io.*;
-import static java.lang.System.in;
 import java.util.ArrayList;
-import java.util.Date;
 
+//UDPServer that interacts with UDPClient
 public class UDPServer {
 
     public static void main(String args[]) throws ClassNotFoundException {
-        DatagramSocket aSocket = null;
+        DatagramSocket aSocket = null; //initialzing DatagramSocket
         try {
-            aSocket = new DatagramSocket(2227);
-            byte[] buffer = new byte[1024];
+            aSocket = new DatagramSocket(2227); //creating new DatagramSocket object
+            byte[] buffer = new byte[1024]; //creating a byte arrays that holds the buffer data
             while (true) {
-                
+                //Creating a request DatagramPacket that holds client data
                 DatagramPacket request = new DatagramPacket(buffer, buffer.length);
-                aSocket.receive(request);
+                aSocket.receive(request); //reciving the request
                 InetAddress clientAddress = request.getAddress(); // Get the client's IP address
-                int clientPort = request.getPort();
-                buffer = run();
-                //System.out.println("Client Request: " + new String(request.getData(), 0, request.getLength()));
+                int clientPort = request.getPort(); //getting client port
+                buffer = run();//calls run() method and stores it in buffer
+                
+                //creating a DatagramPacket reply that sends data to UDPClient
                 DatagramPacket reply = new DatagramPacket(buffer, buffer.length,
                         clientAddress, clientPort );
-                aSocket.send(reply);
+                aSocket.send(reply); //sends reply datagram packet
 
             }
         } catch (SocketException e) {
@@ -40,36 +40,38 @@ public class UDPServer {
             }
         }
     }
-
-    public static byte [] run() throws ClassNotFoundException {
+    //run method
+    public static byte [] run() {
         ArrayList<Member> m = new ArrayList<>();
         try {
 
-            FileInputStream fos = new FileInputStream("memberlistObject");
+            FileInputStream fos = new FileInputStream("memberlistObject"); //reading file named memberlistObject
             
-            ObjectInputStream in = new ObjectInputStream(fos);
-            String line;
+            ObjectInputStream in = new ObjectInputStream(fos); //reading input object from fos
+            
             byte [] sendData = null;
             while (true) {
                 try {
                     Member memb = (Member) in.readObject();
                     m.add(memb); // Add the read Member object to the list
-                } catch (EOFException e) {
+                } catch (ClassNotFoundException e) {
                     break; // Exit the loop when end of file is reached
                 }
             }
-           StringBuilder memberDetailsBuilder = new StringBuilder();
+            
+           StringBuilder memberDetailsBuilder = new StringBuilder();//String builder object that stores memberdetails
+           //for loop to iterate for each arraylist m available
             for (Member memb : m) {
-             memberDetailsBuilder.append(memb.getAddress()).append(" ")
+             memberDetailsBuilder.append(memb.getAddress()).append(" ") //appending member details
                             .append(memb.getfName()).append(" ")
                             .append(memb.getlName()).append(" ")
                             .append(memb.getAge()).append(" ")
                             .append(memb.getNum()).append("\n");
             }
-            String memberDetails = memberDetailsBuilder.toString();
-            sendData = memberDetails.getBytes();
-            in.close();
-            return sendData;
+            String memberDetails = memberDetailsBuilder.toString(); //Converts memberDetailsBuider data to string
+            sendData = memberDetails.getBytes(); // convert memberDetais to bytes
+            in.close(); //closing inputstream
+            return sendData; //returning
         } catch (IOException e) {
             e.printStackTrace();
         }
