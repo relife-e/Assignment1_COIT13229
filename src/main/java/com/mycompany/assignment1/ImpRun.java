@@ -36,9 +36,7 @@ public class ImpRun implements Runnable {
         try {
             DataInputStream in = new DataInputStream(cSocket.getInputStream());
             DataOutputStream out = new DataOutputStream(cSocket.getOutputStream()); // creating
-            int interval = 2000; //creating a varaible that cretates 2 sec interval
-            Timer tm = new Timer();
-
+            
             while (true) {
                 // Read the data from the client
                 String nameF = in.readUTF();
