@@ -51,7 +51,7 @@ import java.util.TimerTask;
             
             
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace();//catches error while reading file
         }finally {
         System.out.println("Memberlist serialized to memberlistObject." + new Date());
         }

@@ -29,7 +29,7 @@ public class TCPClient {
         String stopS = "Yes";
         int count =1;
             while ("Yes".equalsIgnoreCase(stopS)){ //ignores case
-                System.out.println("Enter details for your member num: " + count);
+                System.out.println("Enter details for your member number: " + count);
                 count++;
                 //asking user to enter details
                 System.out.print("Enter First name: ");
@@ -50,14 +50,14 @@ public class TCPClient {
                 out.writeUTF(address);
                 out.writeUTF(phnNum);
 
-                System.out.print("Do you want to enter another set of details? (Yes/No): "); //Asking if user wants another loop/ enter another details
+                System.out.print("Details Saved.\nDo you want to enter another set of details? (Yes/No): "); //Asking if user wants another loop/ enter another details
                 stopS = sc.nextLine();
                 System.out.println("**-**-**-**-**-**-**-****-****-**");
         }
              
         
         } catch (IOException e){
-        System.out.print("Message has not been send to client ");
+        System.out.print("Message has not been send to client "); //catches error when not able to connect to the server
     }
    
         }

@@ -32,9 +32,9 @@ public class UDPServer {
 
             }
         } catch (SocketException e) {
-            System.out.println("Socket: " + e.getMessage());
+            System.out.println("Socket: " + e.getMessage()); //catches when it fails to create or acess socket
         } catch (IOException e) {
-            System.out.println("IO: " + e.getMessage());
+                System.out.println(e.getMessage() + "Error while sending file "); //catches error when sending reply
         } finally {
             if (aSocket != null) {
                 aSocket.close();
@@ -71,13 +71,14 @@ public class UDPServer {
                         .append(memb.getAddress()).append("\t|")
                         .append(memb.getAge()).append("\t|")
                         .append(memb.getNum()).append("|\n");
+                
             }
             String memberDetails = memberDetailsBuilder.toString(); //Converts memberDetailsBuider data to string
             sendData = memberDetails.getBytes(); // convert memberDetais to bytes
             in.close(); //closing inputstream
             return sendData; //returning
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //catches error while reading memberlistObject file
         }
         return null;
 

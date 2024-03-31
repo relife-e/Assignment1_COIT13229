@@ -6,7 +6,7 @@ package com.mycompany.assignment1;
 
 import java.net.*;
 import java.io.*;
-import java.util.Timer;
+
 
 /**
  *
@@ -15,7 +15,7 @@ import java.util.Timer;
 //TCPServer class that interacts with TCPClient class
 public class TCPServer {
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) {
         try {
             int serverPort = 1127;//initalizing serverport
             ServerSocket sSocket = new ServerSocket(serverPort);
@@ -31,7 +31,7 @@ public class TCPServer {
 
             }
         } catch (IOException e) {
-            System.out.println("Error" + e.getMessage());
+            System.out.println("Error" + e.getMessage()); //catches error, in this context used to catch error while accepting socket from client
         }
     }
     //making method for reading input data and storing it in file
@@ -39,7 +39,7 @@ public class TCPServer {
 
         try (FileWriter writer = new FileWriter("memberlist.txt", true)) { // creating FileWriter Object to write into file
             writer.write(nameF + ":" + nameL + ":" + age + ":" + address + ":" + phNum + "\n");
-            System.out.println("Message Received: " + nameF + " " + nameL + ", " + age + ", " + address + ", " + phNum);
+            System.out.println(nameF + " " + nameL + ", " + age + ", " + address + ", " + phNum);
         } catch (IOException e) {
             System.out.println("Error" + e.getMessage());
         }

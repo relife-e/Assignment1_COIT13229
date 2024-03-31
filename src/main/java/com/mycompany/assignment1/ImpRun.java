@@ -11,8 +11,6 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Timer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -48,20 +46,18 @@ public class ImpRun implements Runnable {
                 String age = in.readUTF();
                 String address = in.readUTF();
                 String phnNum = in.readUTF();
-               
-                
-                
+
                 Member memb = new Member(nameF, nameL, age, address, phnNum); //Member object and calling Member constructor
 
                 tS.writeInFile(nameF, nameL, age, address, phnNum);//calling writeInFile method of TCPServer class to write the file details
 
-                System.out.print("Message Recived: "); 
+                System.out.print("Message Recived: ");
 
             }//Catching EOFExcpetion
         } catch (EOFException e) {
-            //catching IOException
+            System.out.println("Error while reading file at the end.  " + e.getMessage());
         } catch (IOException ex) {
-            System.out.println( " Another Thread Started");
+            System.out.println("Error. Please check while readig file of creating new member object"); // catches error while reading files or creating member object
         } finally {
             try {
                 Timer t = new Timer(); // creating Timer object
